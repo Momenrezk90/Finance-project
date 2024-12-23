@@ -1,0 +1,53 @@
+.not-found-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: 'Roboto', sans-serif; /* Clean modern font */
+  }
+  
+  .animated-text {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #333; /* Dark, professional text color */
+    animation: fadeIn 1.5s ease-in-out;
+    letter-spacing: 0.05em;
+  }
+  
+  .subtitle {
+    margin-top: 10px;
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: #555; /* Softer secondary text */
+  }
+  
+  .return-link {
+    margin-top: 20px;
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #fff;
+    background-color: #007bff; /* Professional blue button */
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+  
+  .return-link:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }
+  
+  /* Fade-in effect */
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  

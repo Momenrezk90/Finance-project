@@ -1,0 +1,323 @@
+@keyframes cloudMovement {
+  0% {
+    transform: translateX(-100%); /* Start off-screen to the left */
+  }
+  100% {
+    transform: translateX(100%); /* End off-screen to the right */
+  }
+}
+
+/* Cloud Container */
+.clouds {
+  position: absolute;
+  top: 10%;
+  left: 0;
+  width: 200%; /* Extend the width to allow for continuous movement */
+  height: 100%;
+  z-index: -1;
+  background: url('https://cdn.pixabay.com/photo/2016/06/11/02/29/sky-1452264_960_720.jpg') repeat-x;
+  background-size: cover;
+  animation: cloudMovement 60s linear infinite; /* Slow down the animation */
+}
+
+/* Global Styles */
+body {
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(180deg, rgba(32, 159, 237, 0.8), rgba(0, 191, 255, 0.8)); /* Sky gradient background */
+  color: #333; /* Dark gray text for better readability */
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  min-height: 100vh;
+  position: relative;
+  animation: skyMovement 20s infinite linear; /* Animation for moving sky */
+  align-items:flex;
+  justify-content: space-between;
+}
+
+/* Sky movement animation */
+@keyframes skyMovement {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 100% 0%;
+  }
+}
+
+.clouds {
+  position: absolute;
+  top: 10%;
+  left: 0; /* Ensure it starts from the left */
+  width: 200%; /* Extend the width to allow for continuous movement */
+  height: 100%;
+  z-index: -1;
+  background: url('https://cdn.pixabay.com/photo/2016/06/11/02/29/sky-1452264_960_720.jpg') repeat-x;
+  background-size: cover;
+  animation: cloudMovement 60s linear infinite; /* Slow down the animation */
+}
+
+/* Headings */
+h2, h3 {
+  font-size: 2rem; /* Reduced font size */
+  color: rgb(50, 50, 50); /* Soft gray text */
+  text-align: center;
+  text-shadow: 0 0 10px rgba(50, 50, 50, 0.4);
+  margin-bottom: 20px; /* Adjusted margin */
+}
+
+h3 {
+  color: rgb(70, 70, 70); /* Slightly darker gray for contrast */
+}
+
+/* Button Styles */
+button {
+  background: rgb(100, 200, 255); /* Soft cyan */
+  border: 1px solid rgb(80, 160, 200);
+  padding: 12px 25px; /* Adjusted padding */
+  font-size: 1rem; /* Reduced font size */
+  cursor: pointer;
+  border-radius: 8px;
+  color: #fff;
+  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 191, 255, 0.4);
+}
+
+button:hover {
+  background: rgb(80, 160, 200); /* Darker cyan on hover */
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 191, 255, 0.5);
+}
+
+button:active {
+  background: rgb(60, 120, 150); /* Even darker cyan when clicked */
+  transform: scale(0.95);
+  box-shadow: 0 4px 8px rgba(0, 191, 255, 0.3);
+}
+
+/* Input fields and Textarea */
+input, textarea, select {
+  width: 100%;
+  padding: 12px; /* Adjusted padding */
+  margin: 10px 0; /* Adjusted margin */
+  border: 2px solid rgb(200, 200, 200); /* Light border */
+  border-radius: 8px;
+  background-color: #fff; /* White background for inputs */
+  color: rgb(50, 50, 50); /* Dark text */
+  font-size: 1rem; /* Adjusted font size */
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 8px rgba(200, 200, 200, 0.3);
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: rgb(100, 200, 255); /* Soft blue when focused */
+  box-shadow: 0 4px 8px rgba(100, 200, 255, 0.3);
+}
+
+/* Form Layout */
+form {
+  background: #fff; /* White background for the form */
+  padding: 30px; /* Adjusted padding */
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0, 191, 255, 0.2); /* Light blue shadow */
+  width: 100%;
+  max-width: 1000px; /* Reduced max-width */
+  margin: 20px 0; /* Adjusted margin */
+  box-shadow: 0 10px 20px rgba(0, 191, 255, 0.2); /* Add shadow around the form */
+}
+
+/* Bonus List */
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0; /* Adjusted margin */
+  width: 100%;
+}
+
+ul li {
+  background: rgb(245, 245, 245); /* Light gray background for each item */
+  padding: 18px; /* Adjusted padding */
+  margin: 10px 0; /* Adjusted margin */
+  border-radius: 10px;
+  display: flex;
+  font-weight: bold;
+  justify-content: space-between;
+  align-items: center;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  box-shadow: 10px 7px 10px rgba(100, 200, 255, 0.2); /* Soft shadow */
+}
+
+ul li:hover {
+  transform: scale(1.03);
+  background-color: rgb(235, 235, 235); /* Slightly darker on hover */
+  box-shadow: 0 6px 15px rgba(100, 200, 255, 0.3); /* Slightly deeper shadow on hover */
+}
+
+ul li button {
+  background: rgb(100, 200, 255);
+  color: #fff;
+  border: none;
+  padding: 10px 20px; /* Adjusted padding */
+  border-radius: 8px;
+  cursor: pointer;
+  margin-left: 10px; /* Adjusted margin */
+  transition: background 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 4px 8px rgba(100, 200, 255, 0.4);
+}
+
+ul li button:hover {
+  background: rgb(80, 160, 200);
+  transform: scale(1.05);
+}
+
+ul li button:active {
+  background: rgb(60, 120, 150);
+  transform: scale(0.95);
+}
+
+/* Canvas Style for Chart */
+canvas {
+  margin-top: 30px; /* Adjusted margin */
+  background: rgb(240, 240, 240); /* Soft light background */
+  border-radius: 12px;
+  padding: 20px; /* Adjusted padding */
+  box-shadow: 0 0 20px rgba(100, 200, 255, 0.2); /* Soft shadow around chart */
+  width: 100%;
+  max-width: 1200px; /* Reduced max-width */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+canvas:hover {
+  transform: scale(1.03);
+  box-shadow: 0 6px 12px rgba(100, 200, 255, 0.3); /* Deeper shadow on hover */
+}
+
+/* User Info and Logout */
+div.logout {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+button.logout {
+  background-color: rgb(255, 105, 180); /* Soft pink for logout */
+  color: white;
+  padding: 10px 20px; /* Adjusted padding */
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(255, 105, 180, 0.6);
+  transition: transform 0.3s ease;
+}
+
+button.logout:hover {
+  transform: scale(1.1);
+}
+
+button.logout:active {
+  transform: scale(0.95);
+}
+
+/* Export Button */
+button.export {
+  background-color: rgb(255, 165, 0); /* Soft orange for export */
+  color: white;
+  padding: 12px 25px; /* Adjusted padding */
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 4px 8px rgba(255, 165, 0, 0.4);
+}
+
+button.export:hover {
+  background-color: rgb(255, 130, 0);
+  transform: scale(1.05);
+}
+
+button.export:active {
+  background-color: rgb(255, 100, 0);
+  transform: scale(0.95);
+}
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+  .dashboard-container {
+    padding: 0 15px;  /* Adjusted padding for smaller screens */
+  }
+
+  .dashboard-left, .dashboard-right {
+    width: 100%;
+  }
+
+  form, ul, canvas {
+    max-width: 100%;
+  }
+
+  button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  h2 {
+    font-size: 1.7rem; /* Slightly smaller text */
+  }
+
+  button {
+    padding: 10px 20px;
+    font-size: 0.9rem; /* Smaller font size for buttons */
+  }
+
+  form input, form textarea, form select {
+    font-size: 0.9rem;
+  }
+
+  ul li {
+    font-size: 0.9rem; /* Smaller font size for list items */
+  }
+}
+
+.excal{
+  background-color: rgb(57, 224, 41);
+}
+
+.excal:hover{
+  background-color: rgb(44, 180, 32);
+}
+
+.logoutbutton{
+  background-color: rgb(209, 27, 27);
+  transform: translateX(-100px) !important;
+}
+
+.logoutbutton:hover{
+  background-color: rgb(173, 22, 22);
+}
+
+.boldname {
+  font-weight: bold;
+  font-size: 1.5rem; /* Adjust as needed for size */
+  animation: fadeIn 2s ease-out; /* Animation for fade-in effect */
+  display: inline-block; /* Ensure it doesn't break line */
+  color: #fff; /* Text color, adjust as needed */
+}
+
+/* Keyframes for the animation */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px); /* Slide in from above */
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+

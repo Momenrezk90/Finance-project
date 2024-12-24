@@ -89,6 +89,16 @@ export const getBonusById = async (bonusId) => {
   }
 };
 
+export const rejectBonus = async (bonusId) => {
+  const token = localStorage.getItem('token');
+  const response = await axios.put(
+    `${API_URL}/bonuses/reject/${bonusId}`,
+    {},
+    { headers: { Authorization: `Bearer ${token}` } }
+  );
+  return response.data;
+};
+
 // Approve a bonus
 export const approveBonus = async (bonusId) => {
   const token = localStorage.getItem('token');

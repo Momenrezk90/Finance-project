@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
-const { createBonus, getBonuses, updateBonus, deleteBonus, approveBonus , getUserBonuses} = require('../controllers/bonusController');
+const { createBonus, getBonuses, updateBonus, deleteBonus, approveBonus , getUserBonuses,rejectBonus} = require('../controllers/bonusController');
 const { protect, authorize } = require('../middlewares/authMiddleware');  // Import the middleware
+
 
 // Set up multer for file uploads
 const storage = multer.diskStorage({
@@ -24,6 +25,8 @@ router.put('/:id', protect, authorize(['manager', 'finance']), upload.single('at
 
 // DELETE /api/bonuses/:id (Delete a bonus request)
 router.delete('/:id', protect, authorize(['manager', 'finance']), deleteBonus);
+
+router.put('/reject/:bonusId', protect, rejectBonus);
 
 router.get('/', protect, getBonuses);
 

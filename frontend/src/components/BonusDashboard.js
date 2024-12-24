@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
 import { jwtDecode } from 'jwt-decode';
-import { createBonus, updateBonus, deleteBonus, approveBonus } from '../services/api';
+import { createBonus, updateBonus, deleteBonus, approveBonus ,rejectBonus} from '../services/api';
 import '../styles/index.css';
 import axios from 'axios';
 import {
@@ -42,21 +42,27 @@ const BonusDashboard = () => {
   const chartContainerRef = useRef(null);
   const chartInstanceRef = useRef(null);
   const navigate = useNavigate(); // Initialize useNavigate
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedBonusReason, setSelectedBonusReason] = useState('');
 
   // Calculate monthly bonus totals
   const calculateMonthlyBonuses = (bonuses) => {
     const monthlyData = {};
     
-    bonuses.forEach(bonus => {
-      const month = new Date(bonus.createdAt).toLocaleString('default', { month: 'long', year: 'numeric' });
-      if (!monthlyData[month]) {
-        monthlyData[month] = 0;
-      }
-      monthlyData[month] += bonus.amount;
-    });
+    // Exclude rejected bonuses
+    bonuses
+      .filter(bonus => bonus.status !== 'rejected') // Filter out rejected bonuses
+      .forEach(bonus => {
+        const month = new Date(bonus.createdAt).toLocaleString('default', { month: 'long', year: 'numeric' });
+        if (!monthlyData[month]) {
+          monthlyData[month] = 0;
+        }
+        monthlyData[month] += bonus.amount;
+      });
     
     return Object.entries(monthlyData).map(([month, total]) => ({ month, total }));
   };
+  
 
   // Create chart data based on monthly totals
   const createChartData = (monthlyTotals) => {
@@ -209,6 +215,22 @@ const BonusDashboard = () => {
     }
   };
 
+  const handleRejectBonus = async (bonusId) => {
+    try {
+      const updatedBonus = await rejectBonus(bonusId);
+      setBonusData((prevData) =>
+        prevData.map((bonus) =>
+          bonus._id === bonusId ? updatedBonus : bonus
+        )
+      );
+    } catch (error) {
+      console.error('Error rejecting bonus:', error);
+    }
+  };
+  
+  
+
+
   const handleLogout = () => {
     localStorage.removeItem('token');  // Clear the token from localStorage
     navigate('/login');  // Redirect to login page
@@ -238,6 +260,21 @@ const BonusDashboard = () => {
     navigate('/register'); // Navigate to the register page
   };
 
+  const BonusReasonModal = ({ reason, onClose }) => {
+    if (!reason) return null;
+  
+    return (
+      <div className="custom-modal-overlay">
+        <div className="custom-modal-content">
+          <h2>Bonus Reason</h2>
+          <p>{reason}</p>
+          <button onClick={onClose}>Close</button>
+        </div>
+      </div>
+    );
+  };
+  
+
   return (
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between', padding: '10px' }}>
@@ -258,14 +295,21 @@ const BonusDashboard = () => {
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                   required
+                  maxLength={35}  // Limit the input to 40 characters
                 />
                 <input
-                  type="number"
-                  placeholder="Amount"
-                  value={amount}
-                  onChange={(e) => setAmount(e.target.value)}
-                  required
-                />
+    type="text"
+    placeholder="Amount"
+    value={amount}
+    onChange={(e) => {
+      // Allow only numbers and limit input to 6 digits
+      const newValue = e.target.value.replace(/[^0-9]/g, '');  // Remove non-numeric characters
+      if (newValue.length <= 6) {
+        setAmount(newValue);  // Update the state only if length is <= 6
+      }
+    }}
+    required
+  />
                 <textarea
                   placeholder="Reason"
                   value={reason}
@@ -308,23 +352,67 @@ const BonusDashboard = () => {
 
           <h3>Bonus List</h3>
           <ul>
-            {bonusData
-              .filter(bonus => userRole === 'user' ? bonus.assignedTo === userId : true)
-              .map((bonus) => (
-                <li key={bonus._id}>
-                  {bonus.title} - {bonus.amount} - {bonus.status}
-                  {userRole !== 'user' && (
-                    <>
-                      {bonus.status !== 'approved' && (
-                        <button onClick={() => handleApproveBonus(bonus._id)}>Approve</button>
-                      )}
-                      <button onClick={() => handleEditBonus(bonus._id)}>Edit</button>
-                      <button onClick={() => handleDeleteBonus(bonus._id)}>Delete</button>
-                    </>
-                  )}
-                </li>
-              ))}
-          </ul>
+  {bonusData
+    .filter(bonus => userRole === 'user' ? bonus.assignedTo === userId : true)
+    .map((bonus) => (
+      <li key={bonus._id}>
+        <div className="bonus-info">
+          <span className="bonus-title">{bonus.title}</span>
+          <span className="bonus-amount">${bonus.amount}</span>
+          <span 
+            className={`bonus-status ${
+              bonus.status === 'approved'
+                ? 'approved'
+                : bonus.status === 'pending'
+                ? 'pending'
+                : 'rejected'
+            }`}
+          >
+            {bonus.status === 'rejected' ? 'Rejected' : bonus.status.charAt(0).toUpperCase() + bonus.status.slice(1)}
+          </span>
+        </div>
+        <div style={{ position: 'relative', height: '0px', border: '1px solid #ccc' }}>
+  <button
+    className="exclamation-button"
+    onClick={() => {
+      setSelectedBonusReason(bonus.reason);
+      setIsModalOpen(true);
+    }}
+  >
+    !
+  </button>
+</div>
+
+
+
+        {userRole !== 'user' && (
+          <div className="bonus-actions">
+          {bonus.status === 'pending' && (
+            <>
+              <button onClick={() => handleApproveBonus(bonus._id)}>Approve</button>
+              <button onClick={() => handleEditBonus(bonus._id)}>Edit</button>
+              <button onClick={() => handleRejectBonus(bonus._id)}>Reject</button>
+            </>
+          )}
+          {bonus.status === 'rejected' && (
+            <button onClick={() => handleDeleteBonus(bonus._id)}>Delete</button>
+          )}
+          {bonus.status !== 'pending' && bonus.status !== 'rejected' && (
+            <button onClick={() => handleDeleteBonus(bonus._id)}>Delete</button>
+          )}
+        </div>
+        
+        )}
+      </li>
+    ))}
+</ul>
+{isModalOpen && (
+        <BonusReasonModal
+          reason={selectedBonusReason}
+          onClose={() => setIsModalOpen(false)}  // Close the modal when the button is clicked
+        />
+      )}
+    
         </div>
       </div>
     </div>

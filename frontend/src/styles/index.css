@@ -140,24 +140,6 @@ ul {
   width: 100%;
 }
 
-ul li {
-  background: rgb(245, 245, 245); /* Light gray background for each item */
-  padding: 18px; /* Adjusted padding */
-  margin: 10px 0; /* Adjusted margin */
-  border-radius: 10px;
-  display: flex;
-  font-weight: bold;
-  justify-content: space-between;
-  align-items: center;
-  transition: transform 0.3s ease, background-color 0.3s ease;
-  box-shadow: 10px 7px 10px rgba(100, 200, 255, 0.2); /* Soft shadow */
-}
-
-ul li:hover {
-  transform: scale(1.03);
-  background-color: rgb(235, 235, 235); /* Slightly darker on hover */
-  box-shadow: 0 6px 15px rgba(100, 200, 255, 0.3); /* Slightly deeper shadow on hover */
-}
 
 ul li button {
   background: rgb(100, 200, 255);
@@ -321,3 +303,276 @@ button.export:active {
   }
 }
 
+/* Bonus List Styling */
+ul li {
+  background: rgb(250, 250, 250); /* Light neutral background */
+  padding: 20px; /* Add more padding for better spacing */
+  margin: 15px 0; /* Adjusted margin */
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column; /* Stack bonus info and actions */
+  justify-content: space-between;
+  align-items: flex-start; /* Align content to the left */
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1); /* Soft shadow */
+}
+
+ul li:hover {
+  transform: scale(1.02);
+  background-color: rgb(240, 240, 240); /* Slightly darker on hover */
+}
+
+.bonus-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.bonus-title {
+  font-size: 1.2rem; /* Slightly larger for emphasis */
+  font-weight: bold;
+  color: rgb(50, 50, 50); /* Dark gray */
+}
+
+.bonus-amount {
+  font-size: 1.2rem; /* Same size as the title */
+  font-weight: bold;
+  color: rgb(34, 139, 34); /* Green for monetary values */
+  margin-left: 15px; /* Space between title and amount */
+}
+
+.bonus-status {
+  font-size: 1rem;
+  padding: 5px 15px;
+  border-radius: 20px;
+  color: #fff; /* White text */
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.bonus-status.approved {
+  background: rgb(34, 139, 34); /* Green for approved */
+}
+
+.bonus-status.pending {
+  background: rgb(255, 193, 7); /* Yellow for pending */
+  color: rgb(50, 50, 50); /* Darker text for readability */
+}
+
+.bonus-status.rejected {
+  background: rgb(220, 53, 69); /* Red for rejected */
+}
+
+.bonus-actions {
+  margin-top: 10px; /* Add spacing between info and actions */
+  display: flex;
+  gap: 10px; /* Space between buttons */
+}
+
+.bonus-actions button {
+  background: rgb(100, 200, 255); /* Soft blue for actions */
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.bonus-actions button:hover {
+  background: rgb(80, 160, 200); /* Darker blue on hover */
+  transform: scale(1.05);
+}
+
+.bonus-actions button:active {
+  background: rgb(60, 120, 150); /* Even darker blue when clicked */
+  transform: scale(0.95);
+}
+
+/* Custom Modal Class Styles */
+.custom-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Ensure it appears on top */
+  animation: fadeIn 0.3s ease-in-out; /* Fade-in effect */
+}
+
+/* Modal content box */
+.custom-modal-content {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  width: 400px;
+  max-width: 90%; /* Make sure it is responsive */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transform: scale(0.9);
+  animation: scaleIn 0.3s ease-in-out forwards; /* Scale-in effect */
+}
+
+/* Header of the modal */
+.custom-modal-content h2 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Reason text styling */
+.custom-modal-content p {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.6;
+  text-align: center;
+  margin-bottom: 30px;
+  word-wrap: break-word;
+}
+
+/* Custom Modal Overlay */
+.custom-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7); /* Darker overlay */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.4s ease-out; /* Smooth fade-in */
+}
+
+/* Modal content box */
+.custom-modal-content {
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 12px;
+  width: 500px;
+  max-width: 90%;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+  transform: scale(0.95);
+  animation: scaleIn 0.3s ease-out forwards;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+  max-height: 80vh; /* Limit the height of the modal */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* Prevent overflowing content outside the modal */
+}
+
+/* Modal header */
+.custom-modal-content h2 {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 15px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* Reason text styling */
+.custom-modal-content p {
+  font-size: 1.1rem;
+  color: #555;
+  line-height: 1.7;
+  margin-bottom: 30px;
+  word-wrap: break-word;
+  text-align: left;
+  font-weight: 400;
+  overflow-wrap: break-word; /* Ensures long words break and don’t cause overflow */
+  flex-grow: 1; /* This makes the content take the available space and push the button down */
+  overflow-y: auto; /* Enables scrolling for the reason text */
+}
+
+/* Close button styling */
+.custom-modal-content .close-btn {
+  background-color: #bb2c00;
+  color: white;
+  padding: 14px 28px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  width: 100%;
+  font-weight: 600;
+  margin-top: 20px; /* Spacing from the content */
+}
+
+.custom-modal-content .close-btn:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+.custom-modal-content .close-btn:active {
+  transform: translateY(1px);
+}
+
+/* Fade-in and scale-in animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.95);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+
+/* Custom Exclamation Mark Button */
+.exclamation-button {
+  width: 50px; /* Width of the button */
+  height: 50px; /* Height of the button */
+  background-color: #3ea0c4; /* Tomato red color */
+  color: white;
+  font-size: 2rem; /* Big exclamation mark */
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 50%; /* Make the button circular */
+  cursor: pointer;
+  text-align: center;
+  position: absolute; /* Absolute positioning within the container */
+  bottom: 20px; /* Distance from the bottom of the container */
+  right: 20px; /* Distance from the right of the container */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  transition: all 0.3s ease; /* Smooth transition for hover effects */
+  text-transform: none;
+}
+
+/* Hover effect */
+.exclamation-button:hover {
+  background-color: #3182c9; /* Darker red on hover */
+  transform: translateY(-3px); /* Lift effect on hover */
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
+}
+
+/* Focus effect */
+.exclamation-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 99, 71, 0.5); /* Focus ring with similar red color */
+}
+
+/* Active effect when clicked */
+.exclamation-button:active {
+  transform: translateY(1px); /* Slight depression when clicked */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Softer shadow on click */
+}

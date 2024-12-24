@@ -123,6 +123,28 @@ const deleteBonus = async (req, res) => {
 };
 
 
+const rejectBonus = async (req, res) => {
+  try {
+    const { bonusId } = req.params;
+
+    // Find and update the bonus status to 'rejected'
+    const bonus = await Bonus.findByIdAndUpdate(
+      bonusId,
+      { status: 'rejected' },
+      { new: true } // Return the updated bonus
+    );
+
+    if (!bonus) {
+      return res.status(404).json({ error: 'Bonus not found' });
+    }
+
+    res.status(200).json(bonus);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to reject bonus' });
+  }
+};
+
+
 // PUT to approve a bonus request
 const approveBonus = async (req, res) => {
   const { id } = req.params; // Ensure the id is correctly extracted
@@ -144,4 +166,4 @@ const approveBonus = async (req, res) => {
   }
 };
 
-module.exports = { getBonuses, createBonus, updateBonus, deleteBonus, approveBonus ,getUserBonuses };
+module.exports = { getBonuses, createBonus, updateBonus, deleteBonus, approveBonus ,getUserBonuses , rejectBonus};

@@ -1,1 +1,0 @@
-const AIRLABS_API_KEY= "98b389fc-6d4e-4186-99c2-asd"

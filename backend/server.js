@@ -18,6 +18,9 @@ app.use(express.json()); // Parse JSON request bodies
 
 // MongoDB connection removed to prevent deployment crash
 
+// Health check endpoint — used by CI/CD pipeline to verify deployment
+app.get('/api/health', (req, res) => res.json({ status: 'ok' }));
+
 // API Routes
 app.use('/api/bonuses', bonusRoutes);
 app.use('/api/auth', authRoutes);  // Add auth routes to the app

@@ -1,3 +1,3 @@
 ﻿# Finance-project
 
-Go New
+New Test
